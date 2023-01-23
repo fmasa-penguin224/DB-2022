@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 
 RUN apt -y update
 RUN apt -y install python3 python3-pip curl wget
@@ -10,6 +10,7 @@ RUN mkdir -p /usr/src/app/templates
 ADD ./requirements.txt /usr/src/app/
 ADD ./app.py /usr/src/app/
 ADD ./templates /usr/src/app/templates
+ADD ./static /usr/src/app/static
 RUN pip3 install --no-cache-dir -r /usr/src/app/requirements.txt
 
 

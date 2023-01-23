@@ -1,3 +1,4 @@
+
 from flask import Flask, flash, render_template, request, session
 import mysql.connector, re
 from datetime import timedelta
@@ -36,7 +37,7 @@ def result():
     if iru == user_password:
         cursor.execute("select user_id from userinfo where user_name = %s and user_password = %s", (session["name"], session["password"],))
         user_id = str(cursor.fetchall())
-        session["id"] = int(user_id[2])
+        #session["id"] = int(user_id[2])
         return render_template("health_home.html", user = session["name"],  password = session["password"])
     else:
         flash("ユーザーが見つかりません")
@@ -67,7 +68,7 @@ def toures():
         session["password"] = user_password
         cursor.execute("select user_id from userinfo where user_name = %s and user_password = %s", (session["name"], session["password"],))
         user_id = cursor.fetchall()
-        session["id"] = int(user_id[2])
+        #session["id"] = int(user_id[2])
 
         return render_template("health_home.html", user = session["name"], password = session["password"])
 

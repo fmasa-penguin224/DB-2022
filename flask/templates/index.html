@@ -1,12 +1,9 @@
-<!DOCTYPE html>
-<html lang="ja">
-  <head>
-    <meta charset="UTF-8">
+{% extends "head.html" %}
+
+{% block content %}
     
 <title>TM health</title>
 
-  </head>
-  <body>
   
 <h1>TM health</h1>
 <p>TM healthへのログイン</p>
@@ -28,16 +25,14 @@
     <label for="user">user</label>
     <input type="text" id="user" name="user" min="0" max="100" required>
   </div>
-
   <div>
     <label for="password">password</label>
     <input type="password" id="password" name="password" min="0" max="100" required>
   </div>
 
-　<button>送信</button>
+　<button type="submit" class="btn btn-primary"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">送信</font></font></button>
 </form>
 
 <a href="/touroku">アカウントを作成する場合</a>
 
-  </body>
-</html>
+{% endblock %}

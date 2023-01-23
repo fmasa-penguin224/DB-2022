@@ -1,23 +1,59 @@
-<!DOCTYPE html>
-<html lang="ja">
-  <head>
-    <meta charset="UTF-8">
-    <title>TM health</title>
-    <a href="/user_information">設定</a><br>
-  </head>
 
-  <body>
-  <h1>TM health </h1>
-  <li>ようこそ {{ user }}</li>
+{% extends "head.html" %}
 
+{% block content %}
 
-  <a href="/health_physical_res">身体情報の入力</a><br>
+<div style="padding: 15px; background: rgb(252, 252, 252)">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">TM health</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+    
+        <div class="collapse navbar-collapse" id="navbarColor03">
+          <ul class="navbar-nav me-auto">
 
-  <a>健康管理</a>
-  <a href="/task_home">task</a>
+            <li class="nav-item">
+              <a class="nav-link active" href="health_home">健康管理</a>
+            </li>
 
-  <h2>今日のスコア<h2>
-  <a href="/health_information_res">今日の健康記録</a><br>
+            <li class="nav-item">
+              <a class="nav-link" href="task_home">タスク管理</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="user_information">編集</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/">ログアウト</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
 
-  </body>
-</html>
+<div style="padding: 30px; background: rgb(252, 252, 252)">
+
+<h1><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">ようこそ {{user}}</font></font></h1>
+
+ <h3><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">今日のスコア</font></font></h3>
+ 
+ <div class="card  border-primary mb-3" style="max-width: 20rem;">
+	 <div class="card-header"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">activity</font></font></div>
+  		<div class="card-body">
+		    <h4 class="card-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">身体情報</font></font></h4>
+	    <p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">自分の身体情報を入力してみましょう</font></font></p>
+	<a href="/health_physical_res">入力</a><br> 
+ </div>
+</div>
+
+<div class="card border-primary mb-3" style="max-width: 20rem;">
+  <div class="card-header"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">activity</font></font></div>
+  <div class="card-body">
+    <h4 class="card-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">健康記録</font></font></h4>
+    <p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">今日行った運動等を記録してみましょう</font></font></p>
+ 	<a href="/health_information_res">入力</a><br>
+ </div>
+</div>
+
+  {% endblock %}

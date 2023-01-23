@@ -1,13 +1,9 @@
-<!DOCTYPE html>
-<html lang="ja">
-  <head>
-    <meta charset="UTF-8">
-    
-<title>TM health</title>
+{% extends "head.html" %}
 
-  </head>
-  <body>
-  
+{% block content %}
+
+ <!-- ここにメインコンテンツを書く -->
+ 
   <h1>TM health</h1>
   <p>TM healthへのユーザー登録</p>
 
@@ -22,6 +18,7 @@
   {% endwith %}
 
   <form action="/toures" method="post">
+
     <div>
       <label for="user">user</label>
       <input type="text" id="user" name="user" min="0" max="100" required>
@@ -37,8 +34,8 @@
       <input type="email" id="mailaddress" name="mailaddress" min="0" max="100" required>
     </div>
 
-　  <button>登録</button>
-  </form>
+    <button type="submit" class="btn btn-primary">登録</button>
 
-  </body>
-</html>
+ </form>
+
+{% endblock %}
