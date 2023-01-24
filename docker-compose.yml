@@ -20,6 +20,11 @@ services:
     build:
       context: ./flask
       dockerfile: Dockerfile
+    volumes:
+    - ./flask/requirements.txt:/usr/src/app/requirements.txt
+    - ./flask/app.py:/usr/src/app/app.py
+    - ./flask/templates:/usr/src/app/templates
+    - ./flask/static:/usr/src/app/static
     ports:
       - 80:80
     restart: always
