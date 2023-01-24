@@ -1,9 +1,10 @@
-FROM ubuntu:20.04
+FROM shomaigu/db-flask:latest
+#FROM ubuntu:20.04
 
-RUN apt -y update
-RUN apt -y install python3 python3-pip curl wget
-RUN apt autoremove
-RUN pip3 install --upgrade pip setuptools
+#RUN apt -y update
+#RUN apt -y install python3 python3-pip curl wget
+#RUN apt autoremove
+#RUN pip3 install --upgrade pip setuptools
 
 
 RUN mkdir -p /usr/src/app/templates
