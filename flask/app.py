@@ -1,3 +1,4 @@
+#疲れた
 from flask import Flask, flash, render_template, request, session
 import mysql.connector, re
 from datetime import timedelta
