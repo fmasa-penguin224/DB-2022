@@ -1,4 +1,3 @@
-
 FROM shomaigu/db-class-flask:latest
 
 #RUN apt -y update
