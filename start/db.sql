@@ -69,3 +69,12 @@ create table tmcit.eventinfo(
     FOREIGN KEY(execise_id) REFERENCES execiseinfo(execise_id)
     );
 
+create table tmcit.groupinfo(
+    user_id int,
+    group_id int auto_increment,
+    date_registration date,
+    date_updated date,
+    group_name varchar(32),
+    UNIQUE KEY (group_id),
+    FOREIGN KEY(user_id) REFERENCES userinfo(user_id)
+    );
