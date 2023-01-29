@@ -36,22 +36,25 @@
         <title>TM health</title>
         <h1>TM health</h1>
 
-    <form action="/user_information_res" method="post">
-	<div>
-            <label for="user">user</label>
-            <input type="text" id="user" name="user"  min="0" max="100" required>
+    <form action="/health_healthiness_res" method="post">
+        <div>
+            <label for="calorie">摂取カロリー</label>
+            <input type="text" id="calorie" name="calorie"  min="0" max="100" required>
+            <span class="add-on">kcal</span>
         </div>
         <div>
-            <label for="password">password</label>
-            <input type="password" id="password" name="password" min="0" max="100" required>
+            <label for="sleeping">睡眠時間</label>
+            <input type="text" id="sleeping" name="sleeping" min="0" max="100" required>
+            <span class="add-on">分</span>
         </div>
 
         <div>
-            <label for="mailaddress">mailaddress</label>
-            <input type="email" id="mailaddress" name="mailaddress" min="0" max="100" required>
+            <label for="fluid">摂取水分量</label>
+            <input type="text" id="fluid" name="fluid" min="0" max="100" required>
+            <span class="add-on">L</span>
         </div>
 
-        <button type="submit" class="btn btn-outline-primary"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">編集</font></font></button>
+        <button type="submit" class="btn btn-outline-primary"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">登録</font></font></button>
     </form>
     <form action="/health_home">
         <button type="submit" class="btn btn-outline-primary"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">戻る</font></font></button>

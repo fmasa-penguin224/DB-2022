@@ -1,7 +1,7 @@
 version: '3'
 services:
   mysql:
-    image: shomaigu/mysql-database-class
+    image: penguin224/mysql-database-class
 #    build:
 #      context: .
 #      dockerfile: ./Dockerfile
