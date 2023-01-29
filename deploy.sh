@@ -3,7 +3,7 @@
 #!/bin/bash
 
 docker-compose down
-#docker-compose down --rmi all --volumes --remove-orphans
+docker-compose down --rmi all --volumes --remove-orphans
 
 rm -r -f ./mysql
 
