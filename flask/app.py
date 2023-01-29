@@ -1,8 +1,7 @@
 
-from flask import Flask, flash, render_template, request, session
+from flask import Flask, flash, render_template, request, session, redirect
 import mysql.connector, re
 from datetime import timedelta
-
 
 app = Flask(__name__)
 
@@ -16,10 +15,8 @@ def index():
 @app.route("/result", methods=["POST"])
 def result():
     session.permanent = True
-    user_name = request.form["user"]
-    session["name"] = user_name
-    user_password = request.form["password"]
-    session["password"] = user_password
+    session["name"] = request.form["user"]
+    session["password"] = request.form["password"]
 
 
     db=mysql.connector.connect(host="mysql", user="root", password="root", database="tmcit")
@@ -34,14 +31,16 @@ def result():
     #print(iru)
     db.commit()
 
-    if iru == user_password:
+    if iru == session["password"]:
         cursor.execute("select user_id from userinfo where user_name = %s and user_password = %s", (session["name"], session["password"],))
         user_id = str(cursor.fetchall())
-        #session["id"] = int(user_id[2])
-        return render_template("health_home.html", user = session["name"],  password = session["password"])
+        #print(user_id)
+        session["id"] = re.sub(r"[^0-9a-zA-Z]", "", user_id)
+        #print(session["id"])
+        return render_template("health_home.html", user = session["name"])
     else:
         flash("ユーザーが見つかりません")
-        return render_template("index.html", user = session["name"], password = session["password"])
+        return render_template("index.html")
 
 
 @app.route("/touroku")
@@ -50,6 +49,7 @@ def touroku():
 
 @app.route("/toures", methods=["POST"])
 def toures():
+    session.permanent = True
     user_name = request.form["user"]
     user_password = request.form["password"]
     user_mailaddress = request.form["mailaddress"]
@@ -59,21 +59,25 @@ def toures():
 
     cursor.execute("select user_name from userinfo where user_name = %s", (user_name,))
     check_name = str(cursor.fetchall())
+    cursor.execute("select user_password from userinfo where user_password = %s", (user_password,))
+    check_password = str(cursor.fetchall())
 
-    if check_name == "[]":
+    if (check_name == "[]") and (check_password == "[]"):
         cursor.execute("INSERT INTO userinfo VALUES (NULL, %s, %s, %s, NULL, now(), now(), NULL)", (user_name, user_password, user_mailaddress))
         db.commit()
 
         session["name"] = user_name
         session["password"] = user_password
         cursor.execute("select user_id from userinfo where user_name = %s and user_password = %s", (session["name"], session["password"],))
-        user_id = cursor.fetchall()
-        #session["id"] = int(user_id[2])
+        user_id = str(cursor.fetchall())
+        #print(user_id)
+        session["id"] = re.sub(r"[^0-9a-zA-Z]", "", user_id)
+        #print(session["id"])
 
-        return render_template("health_home.html", user = session["name"], password = session["password"])
+        return render_template("health_home.html", user = session["name"])
 
     else:
-        flash("使用されているユーザー名です")
+        flash("このユーザー名またはパスワードはすでに使用されています")
         return render_template("touroku.html")
 
 @app.route("/health_home")
@@ -98,10 +102,19 @@ def user_information_res():
 
     return render_template("health_home.html", user = session["name"])
 
-
 @app.route("/task_home")
 def task():
     return render_template("task_home.html", user = session["name"])
+
+
+@app.route("/logout", methods=["GET"])
+def logout():
+    session.pop("user_id",None)
+    session.pop("name",None)
+    session.pop("password",None)
+    session.pop("mailaddress",None)
+    session.clear()
+    return redirect("/")
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=80, debug=True)
