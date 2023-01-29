@@ -12,43 +12,53 @@ create table tmcit.userinfo(
     );
 
 create table tmcit.physicalinfo(
-    user_id int auto_increment,
-    user_height int,
-    user_weight int,
+    id int auto_increment,
+    user_id int,
+    user_height float,
+    user_weight float,
     user_age int,
     date_registration date,
     date_updated date,
+    UNIQUE KEY (id),
     FOREIGN KEY(user_id) REFERENCES userinfo(user_id)
     );
 
 create table tmcit.calorieinfo(
-    user_id int auto_increment,
-    caloric_intake int,
+    id int auto_increment,
+    user_id int,
+    calorie_intake float,
     date_updated date,
+    UNIQUE KEY (id),
     FOREIGN KEY(user_id) REFERENCES userinfo(user_id)
     );
 
 create table tmcit.sleepinginfo(
-    user_id int auto_increment,
-    sleeping_hours int,
+    id int auto_increment,
+    user_id int,
+    sleeping_minutes int,
     date_updated date,
+    UNIQUE KEY (id),
     FOREIGN KEY(user_id) REFERENCES userinfo(user_id)
     );
 
 create table tmcit.fluidinfo(
-    user_id int auto_increment,
-    fluid_intake int,
+    id int auto_increment,
+    user_id int,
+    fluid_intake float,
     date_updated date,
+    UNIQUE KEY (id),
     FOREIGN KEY(user_id) REFERENCES userinfo(user_id)
     );
 
 
 create table tmcit.execiseinfo(
-    user_id int auto_increment,
-    execise_time int,
+    id int auto_increment,
+    user_id int,
+    execise_minutes int,
     execise_id varchar(5),
     date_updated date,
     PRIMARY KEY (execise_id),
+    UNIQUE KEY (id),
     FOREIGN KEY(user_id) REFERENCES userinfo(user_id)
     );
 

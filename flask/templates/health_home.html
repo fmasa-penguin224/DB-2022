@@ -3,6 +3,7 @@
 
 {% block content %}
 
+
 <div style="padding: 15px; background: rgb(252, 252, 252)">
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
       <div class="container-fluid">
@@ -25,7 +26,7 @@
               <a class="nav-link" href="user_information">編集</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/">ログアウト</a>
+              <a class="nav-link" href="logout">ログアウト</a>
             </li>
           </ul>
         </div>
@@ -36,24 +37,30 @@
 
 <h1><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">ようこそ {{user}}</font></font></h1>
 
- <h3><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">今日のスコア</font></font></h3>
- 
- <div class="card  border-primary mb-3" style="max-width: 20rem;">
-	 <div class="card-header"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">activity</font></font></div>
-  		<div class="card-body">
-		    <h4 class="card-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">身体情報</font></font></h4>
-	    <p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">自分の身体情報を入力してみましょう</font></font></p>
-	<a href="/health_physical_res">入力</a><br> 
- </div>
+<h3><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">今日のスコア</font></font></h3>
+
+<div class="card  border-primary mb-3" style="max-width: 20rem;">
+	<div class="card-header"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">activity</font></font></div>
+    <div class="card-body">
+      <h4 class="card-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">身体情報</font></font></h4>
+      <p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">自分の身体情報を入力してみましょう</font></font></p><br><br>
+      <p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">身長： {{height}} cm</font></font></p><br>
+      <p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">体重： {{weight}} kg</font></font></p><br>
+      <p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">年齢： {{age}} 歳</font></font></p><br>
+    <a href="/health_physical">入力</a><br><a href="/health_physical_information">編集</a><br>
+  </div>
 </div>
 
 <div class="card border-primary mb-3" style="max-width: 20rem;">
   <div class="card-header"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">activity</font></font></div>
   <div class="card-body">
     <h4 class="card-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">健康記録</font></font></h4>
-    <p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">今日行った運動等を記録してみましょう</font></font></p>
- 	<a href="/health_information_res">入力</a><br>
- </div>
+    <p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">今日の健康度を記録しましょう</font></font></p>
+    <p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">摂取カロリー： {{calorie}} kcal</font></font></p><br>
+      <p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">睡眠時間： {{sleeping}} 分</font></font></p><br>
+      <p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">摂取水分量： {{fluid}} L</font></font></p><br>
+  <a href="/health_healthiness">入力</a><br><a href="/health_healthiness_information">編集</a><br>
+  </div>
 </div>
 
   {% endblock %}
