@@ -11,6 +11,7 @@ ADD ./requirements.txt /usr/src/app/
 ADD ./app.py /usr/src/app/
 ADD ./templates /usr/src/app/templates
 ADD ./static /usr/src/app/static
+ADD ./lib /usr/src/app/lib
 #RUN pip3 install --no-cache-dir -r /usr/src/app/requirements.txt
 
 

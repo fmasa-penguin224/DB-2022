@@ -1,7 +1,9 @@
 
-from flask import Flask, flash, render_template, request, session, redirect
+from flask import Flask, flash, render_template, request, session, url_for ,redirect
 import mysql.connector, re
 from datetime import timedelta
+from lib.user import User
+from lib.group import Group
 
 app = Flask(__name__)
 
@@ -36,7 +38,7 @@ def result():
         user_id = str(cursor.fetchall())
         #print(user_id)
         session["id"] = re.sub(r"[^0-9a-zA-Z]", "", user_id)
-        print(session["id"])
+        #print(session["id"])
         return redirect("/health_home")
     else:
         flash("ユーザーが見つかりません")
@@ -81,24 +83,27 @@ def toures():
         flash("このユーザー名またはパスワードはすでに使用されています")
         return render_template("touroku.html")
 
+
 @app.route("/health_home")
 def health():
     db=mysql.connector.connect(host="mysql", user="root", password="root", database="tmcit")
     cursor=db.cursor(buffered=True)
 
     cursor.execute("select user_height from physicalinfo where user_id = %s", (session["id"],))
-    user_height = re.sub(r"[^0-9a-zA-Z.]", "", str(cursor.fetchall()))
+    user_height = float(re.sub(r"[^0-9a-zA-Z.]", "", str(cursor.fetchall())))
     cursor.execute("select user_weight from physicalinfo where user_id = %s", (session["id"],))
-    user_weight = re.sub(r"[^0-9a-zA-Z.]", "", str(cursor.fetchall()))
+    user_weight = float(re.sub(r"[^0-9a-zA-Z.]", "", str(cursor.fetchall())))
     cursor.execute("select user_age from physicalinfo where user_id = %s", (session["id"],))
-    user_age = re.sub(r"[^0-9a-zA-Z.]", "", str(cursor.fetchall()))
+    user_age = float(re.sub(r"[^0-9a-zA-Z.]", "", str(cursor.fetchall())))
     cursor.execute("select calorie_intake from calorieinfo where user_id = %s", (session["id"],))
-    calorie_intake = re.sub(r"[^0-9a-zA-Z.]", "", str(cursor.fetchall()))
+    calorie_intake = float(re.sub(r"[^0-9a-zA-Z.]", "", str(cursor.fetchall())))
     cursor.execute("select sleeping_minutes from sleepinginfo where user_id = %s", (session["id"],))
-    sleeping_minutes = re.sub(r"[^0-9a-zA-Z.]", "", str(cursor.fetchall()))
+    sleeping_minutes = float(re.sub(r"[^0-9a-zA-Z.]", "", str(cursor.fetchall())))
     cursor.execute("select fluid_intake from fluidinfo where user_id = %s", (session["id"],))
-    fluid_intake = re.sub(r"[^0-9a-zA-Z.]", "", str(cursor.fetchall()))
+    fluid_intake = float(re.sub(r"[^0-9a-zA-Z.]", "", str(cursor.fetchall())))
     #print(user_height, user_weight, user_age)
+
+    #result_score = score(user_height, user_weight, user_age, calorie_intake, sleeping_minutes, fluid_intake)
 
     return render_template("health_home.html", user = session["name"], height=user_height, weight=user_weight, age=user_age, calorie=calorie_intake, sleeping=sleeping_minutes, fluid=fluid_intake)
 
@@ -235,10 +240,44 @@ def health_healthiness_information_res():
 
 
 
-@app.route("/task_home")
+@app.route("/task")
 def task():
-    return render_template("task_home.html", user = session["name"])
+    return render_template("task.html", user = session["name"])
 
+
+@app.route("/task-add",methods=["POST","GET"])
+def task_add():
+    return render_template("task-add.html", user = session["name"])
+
+@app.route("/group",methods=["POST","GET"])
+def group():
+    # if "flag" in session and session["flag"]:
+    if request.method == "POST":
+        user_name = session["name"]
+        group_name = request.form.get('group_name')
+        users = request.form.getlist('name')
+
+        print(type(users))
+        print(users)
+
+        userlist=[]
+        for user in users:
+            user_id=User.get_userID(user)
+            userlist.append(int(user_id))
+
+        user_id=User.get_userID(user_name)
+        userlist.append(user_id)
+
+        for user in userlist:
+            print(type(user))
+            print(user)
+            message = Group.group_add(int(user) , group_name)
+
+        return render_template("group.html" , tittle='グループ追加')
+    else:
+        return render_template("group.html" , tittle='グループ追加')
+    # else:
+    #     return redirect(url_for('index'))
 
 @app.route("/logout", methods=["GET"])
 def logout():
