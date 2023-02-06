@@ -1,0 +1,107 @@
+{% extends "head.html" %}
+
+{% block content %}
+<form action="/group" method="post">
+<div class="form-group">
+	<label for="exampleTextarea" class="form-label mt-4"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ message }}</font></font></label>
+    <label for="exampleTextarea" class="form-label mt-4"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">グループ名</font></font></label>
+    <input type="text" class="form-control" id="group_name" name="group_name" aria-describedby="emailHelp" placeholder="グループ名" required>
+
+	<div style="display: flex; align-items: center;">
+		<label for="exampleTextarea" class="form-label mt-4"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">ユーザ追加</font></font></label>
+		<br>
+		<button type="button" class="btn btn-secondary" value="ユーザー追加" onclick="addForm()" style="width: 57.6px; height: 37.6px;margin-top: 20px;margin-left: 15px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">追加</font></font></button>
+	</div>
+<div id="form_area">
+    <!-- <p id="p_1">1 </p>
+	<input type="text" class="textbox form-control" id="inputform_1" name="1" placeholder="追加したいユーザー名1" required>
+    <button type="button" id="1" onclick="deleteBtn(this)" class="btn btn-danger"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">削除</font></font></button>
+    <br id='br' id='br_1'> -->
+</div>
+<style>
+#form-group p {
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+	margin-right: 10px;
+}
+
+
+#form-group button{
+    margin-right:20%;
+}
+
+</style>
+
+<br>
+
+<script type="text/javascript">
+	var i = 1 ;
+  function addForm() {
+	  var alice = document.createElement("div");
+	  alice.classList.add("alice");
+	  alice.id = 'alice'+i;
+	  alice.style.display = "flex";
+	  alice.style.marginTop = "10px";
+	  alice.style.alignItems = "center";
+
+	  var textbox_element = document.getElementById('ptag');
+	  var new1_element = document.createElement('p');
+	  new1_element.id = 'p_' + i;
+	  new1_element.textContent = i +'  ';
+	  new1_element.style.marginBottom = '0px';
+	  alice.appendChild(new1_element);
+
+	  var input_data = document.createElement('input');
+	  input_data.type = 'text';
+	  input_data.id = 'inputform_' + i;
+	  input_data.name = 'name';
+	  input_data.placeholder = '追加したいユーザー名'+i;
+	  input_data.className = "form-control";
+	  input_data.style.width = "40%";
+	  input_data.style.height ="33px";
+	  input_data.style.marginLeft = "10px";
+	  input_data.style.marginRight = "15px"
+	  alice.appendChild(input_data);
+  
+	  var button_data = document.createElement('button');
+	  button_data.id = i;
+	  button_data.addEventListener("click", function(){
+      deleteBtn(this);
+	  });
+	  button_data.innerHTML = '削除';
+	  button_data.className = "btn btn-danger";
+	  button_data.type = "button"
+	  alice.appendChild(button_data);
+
+	  var text_element = document.getElementById('br');
+	  var text_element = document.createElement('br');
+	  text_element.id = 'br_' + i;
+	  alice.appendChild(text_element);
+
+	//   document.getElementById("form_area").appendChild(alice);
+	  var formArea = document.getElementById("form_area");
+	  formArea.appendChild(alice);
+	  i++ ;
+  }
+  
+  function deleteBtn(target) {
+	  var target_id = target.id;
+	  var parent = document.getElementById('alice'+target_id);
+	  var ipt_id = document.getElementById('inputform_' + target_id);
+	  var tgt_id = document.getElementById(target_id);
+	  var Pid = document.getElementById('p_' + target_id);
+	  var brid = document.getElementById('br_' + target_id);
+	  parent.removeChild(ipt_id);
+	  parent.removeChild(tgt_id);
+	  parent.removeChild(Pid);
+	  parent.removeChild(brid);
+  }
+  </script>
+
+</div>
+  <button type="submit" class="btn btn-secondary" name="post" value="group"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">登録</font></font></button>
+</form>
+<!-- ここにメインコンテンツを書く -->
+{% endblock %}
