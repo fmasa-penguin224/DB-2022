@@ -295,7 +295,7 @@ def group():
             userlist.append(user_id)
 
             for user in userlist:
-                if user='':
+                if user=='':
                     print(なし)
                     return 0
                 else:
