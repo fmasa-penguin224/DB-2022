@@ -1,10 +1,10 @@
 version: '3'
 services:
   mysql:
-    image: penguin224/mysql-database-class
-#    build:
-#      context: .
-#      dockerfile: ./Dockerfile
+    # image: penguin224/mysql-database-class
+    build:
+      context: .
+      dockerfile: ./Dockerfile
     volumes:
     - ./mysql:/var/lib/mysql
 

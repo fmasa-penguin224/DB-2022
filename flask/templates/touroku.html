@@ -21,7 +21,7 @@
 
     <div>
       <label for="user">user</label>
-      <input type="text" id="user" name="user" min="0" max="100" required>
+      <input type="text" id="user" name="user" min="0" max="100" pattern="[a-zA-Z0-9._%+-]+" required>
     </div>
 
     <div>
@@ -31,7 +31,7 @@
 
     <div>
       <label for="mailaddress">mailaddress</label>
-      <input type="email" id="mailaddress" name="mailaddress" min="0" max="100" required>
+      <input type="email" id="mailaddress" name="mailaddress" min="0" max="100" pattern="[a-z0-9._%+-]+@g\.metro-cit\.ac\.jp$" required>
     </div>
 
     <button type="submit" class="btn btn-primary">登録</button>

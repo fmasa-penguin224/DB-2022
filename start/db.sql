@@ -82,12 +82,12 @@ create table tmcit.groupinfo(
 create table tmcit.taskinfo(
     task_id int auto_increment,
     user_id int,
-    group_id int,
+    group_name varchar(32),
     date_registration date,
     date_limit date,
     task_name varchar(32),
     task_content varchar(144),
     PRIMARY KEY (task_id),
     FOREIGN KEY(user_id) REFERENCES userinfo(user_id),
-    FOREIGN KEY(group_id) REFERENCES groupinfo(group_id)
+    FOREIGN KEY(group_name) REFERENCES groupinfo(group_name)
 );

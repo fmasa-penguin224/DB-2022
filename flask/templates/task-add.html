@@ -1,16 +1,33 @@
-{% extends "head.html" %}
+{% extends "alice.html" %}
 
 {% block content %}
 <form action="/task-add" method="POST">
-    <label for="UserID" class="form-label">グループ</label><br>
-        <select name="groupe">
-            <option value="1">1</option>
-            <option value="2">2</option>
-        </select>
+
+    <div class="form-group">
+        <p class="text-secondary"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ message }}</font></font></p>
+    <label for="exampleTextare"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">グループ</font></font></label>
+    <select class="custom-select" name="group">
+        <option selected=""><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">この選択メニューを開く</font></font></option>
+    {% for row in mygrouplist %}
+        <option value={{ row[0] }} aria-required="true"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ row[0] }}</font></font></option>
+    {% endfor %}
+    </select>
+
+    <br><br>
+    <label for="exampleTextare"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">締め切り日</font></font></label><br>
+    <input type="date" name="limit" required></input>
+    <br><br>
+
+    <label for="exampleTextare"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">タスク名</font></font></label><br>
+    <input type="text" class="form-control" placeholder="タスクの名前" id="inputDefault" name="task_name" required>
+    <br><br>
+
+    <label for="exampleTextare"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">タスク内容</font></font></label><br>
+    <textarea class="form-control" id="exampleTextarea" rows="3" name="task"></textarea>
     <br>
-    <label for="time" class="form-label">締め切り時間</label><br>
-    <input type="datetime-local"></input><br><br>
-    <button>確定</button>
+    
+    <button type="submit" class="btn btn-secondary"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">登録</font></font ></button>
+</div>
 </form>
 
 {% endblock %}

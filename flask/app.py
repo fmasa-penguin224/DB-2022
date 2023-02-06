@@ -4,6 +4,7 @@ import mysql.connector, re
 from datetime import timedelta
 from lib.user import User
 from lib.group import Group
+from lib.task import Task
 
 app = Flask(__name__)
 
@@ -71,6 +72,8 @@ def toures():
 
         session["name"] = user_name
         session["password"] = user_password
+        alice=User.loginjudge(user_name)
+        print(alice)
         cursor.execute("select user_id from userinfo where user_name = %s and user_password = %s", (session["name"], session["password"],))
         user_id = str(cursor.fetchall())
         #print(user_id)
@@ -247,37 +250,68 @@ def task():
 
 @app.route("/task-add",methods=["POST","GET"])
 def task_add():
-    return render_template("task-add.html", user = session["name"])
+    if request.method == "POST":
+        user_name = session["name"]
+
+        user_id=User.get_userID(user_name)
+        group_name = request.form.get('group')
+        limit = request.form.get('limit')
+        task_name = request.form.get('task_name')
+        task = request.form.get('task')
+
+        mygrouplist = Group.sarch_group(user_id)
+        print(user_id,group_name,limit,task_name,task)
+        # Task.task_add(user_id,group_name,limit,task_name,task)
+        message=task_name + 'を登録しました'
+        return render_template("task-add.html" , tittle='グループ追加',mygrouplist=mygrouplist,message=message)
+
+    else:
+        user_name = session["name"]
+        user_id=User.get_userID(user_name)
+        mygrouplist = Group.sarch_group(user_id)
+        
+        return render_template("task-add.html" , tittle='グループ追加',mygrouplist=mygrouplist)
 
 @app.route("/group",methods=["POST","GET"])
 def group():
-    # if "flag" in session and session["flag"]:
-    if request.method == "POST":
-        user_name = session["name"]
-        group_name = request.form.get('group_name')
-        users = request.form.getlist('name')
+    if "flag" in session and session["flag"]:
+        if request.method == "POST":
+            user_name = session["name"]
+            group_name = request.form.get('group_name')
+            users = request.form.getlist('name')
 
-        print(type(users))
-        print(users)
+            print(type(users))
+            print(users)
 
-        userlist=[]
-        for user in users:
-            user_id=User.get_userID(user)
-            userlist.append(int(user_id))
+            userlist=[]
+            for user in users:
+                if str(user)=='':
+                    print(user)
+                else:
+                    user_id=User.get_userID(user)
+                    userlist.append(int(user_id))
 
-        user_id=User.get_userID(user_name)
-        userlist.append(user_id)
+            user_id=User.get_userID(user_name)
+            userlist.append(user_id)
 
-        for user in userlist:
-            print(type(user))
-            print(user)
-            message = Group.group_add(int(user) , group_name)
+            for user in userlist:
+                if user='':
+                    print(なし)
+                    return 0
+                else:
+                    print(type(user))
+                    print(user)
+                    name=User.get_username(user)
+                    messages=[]
+                    message = Group.group_add(int(user) , group_name,name)
+                    messages.append(message)
 
-        return render_template("group.html" , tittle='グループ追加')
+
+            return render_template("group.html" , tittle='グループ追加',messages=messages)
+        else:
+            return render_template("group.html" , tittle='グループ追加')
     else:
-        return render_template("group.html" , tittle='グループ追加')
-    # else:
-    #     return redirect(url_for('index'))
+        return redirect(url_for('index'))
 
 @app.route("/logout", methods=["GET"])
 def logout():
@@ -285,6 +319,7 @@ def logout():
     session.pop("name",None)
     session.pop("password",None)
     session.pop("mailaddress",None)
+    session.pop("flag",None)
     session.clear()
     return redirect("/")
 
