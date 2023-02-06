@@ -245,7 +245,19 @@ def health_healthiness_information_res():
 
 @app.route("/task")
 def task():
-    return render_template("task.html", user = session["name"])
+    user_name = session["name"]
+    user_id=User.get_userID(user_name)
+
+    db=mysql.connector.connect(host="mysql", user="root", password="root", database="tmcit")
+    cursor=db.cursor(buffered=True)
+    cursor.execute("select task_name from taskinfo where user_id = %s", (user_id,))
+    name_task = cursor.fetchall()
+    cursor.execute("select task_content from taskinfo where user_id = %s", (user_id,))
+    name_content = cursor.fetchall()
+    cursor.execute("select date_limit from taskinfo where user_id = %s", (user_id,))
+    limit_date = cursor.fetchall()
+
+    return render_template("task.html", user = session["name"], task_title = name_task, limit_time = limit_date, content = name_content)
 
 
 @app.route("/task-add",methods=["POST","GET"])
