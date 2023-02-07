@@ -256,8 +256,9 @@ def task():
     name_content = cursor.fetchall()
     cursor.execute("select date_limit from taskinfo where user_id = %s", (user_id,))
     limit_date = cursor.fetchall()
+    
 
-    return render_template("task.html", user = session["name"], task_title = name_task, limit_time = limit_date, content = name_content)
+    return render_template("task.html",max = len(name_task) user = session["name"], task_title = name_task, limit_time = limit_date, content = name_content)
 
 
 @app.route("/task-add",methods=["POST","GET"])
