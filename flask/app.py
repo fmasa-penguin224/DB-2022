@@ -263,14 +263,14 @@ def task_add():
         print(user_id,group_name,limit,task_name,task)
         # Task.task_add(user_id,group_name,limit,task_name,task)
         message=task_name + 'を登録しました'
-        return render_template("task-add.html" , tittle='グループ追加',mygrouplist=mygrouplist,message=message)
+        return render_template("task-add.html" , tittle='タスク追加',mygrouplist=mygrouplist,message=message)
 
     else:
         user_name = session["name"]
         user_id=User.get_userID(user_name)
         mygrouplist = Group.sarch_group(user_id)
         
-        return render_template("task-add.html" , tittle='グループ追加',mygrouplist=mygrouplist)
+        return render_template("task-add.html" , tittle='タスク追加',mygrouplist=mygrouplist)
 
 @app.route("/group",methods=["POST","GET"])
 def group():
@@ -286,32 +286,37 @@ def group():
             userlist=[]
             for user in users:
                 if str(user)=='':
-                    print(user)
+                    print('空白'+user)
                 else:
                     user_id=User.get_userID(user)
                     userlist.append(int(user_id))
 
             user_id=User.get_userID(user_name)
             userlist.append(user_id)
-
-            for user in userlist:
+            print('userlist:')
+            print(userlist)
+            messages=[]
+            for users in userlist:
                 if user=='':
                     print(なし)
                     return 0
                 else:
-                    print(type(user))
-                    print(user)
-                    name=User.get_username(user)
-                    messages=[]
-                    message = Group.group_add(int(user) , group_name,name)
+                    print('users')
+                    print(type(users))
+                    print(users)
+                    name=User.get_username(users)
+                    message= Group.group_add(int(users) , group_name,name)
+                    print('message'+message)
                     messages.append(message)
-
+                
+                print(messages)
 
             return render_template("group.html" , tittle='グループ追加',messages=messages)
         else:
             return render_template("group.html" , tittle='グループ追加')
     else:
         return redirect(url_for('index'))
+
 
 @app.route("/logout", methods=["GET"])
 def logout():
