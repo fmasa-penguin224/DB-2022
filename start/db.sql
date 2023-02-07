@@ -88,6 +88,5 @@ create table tmcit.taskinfo(
     task_name varchar(32),
     task_content varchar(144),
     PRIMARY KEY (task_id),
-    FOREIGN KEY(user_id) REFERENCES userinfo(user_id),
-    FOREIGN KEY(group_name) REFERENCES groupinfo(group_name)
+    FOREIGN KEY(user_id) REFERENCES userinfo(user_id)
 );
