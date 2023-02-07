@@ -243,8 +243,9 @@ def health_healthiness_information_res():
 
 
 
-@app.route("/task")
+@app.route("/task",methods=["POST","GET"])
 def task():
+
     user_name = session["name"]
     user_id=User.get_userID(user_name)
 

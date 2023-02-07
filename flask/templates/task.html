@@ -2,57 +2,28 @@
 
 {% block content %}
 
-<div style="padding: 15px; background: rgb(252, 252, 252)">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">TM health</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-    
-        <div class="collapse navbar-collapse" id="navbarColor03">
-          <ul class="navbar-nav me-auto">
-
-            <li class="nav-item">
-              <a class="nav-link active" href="health_home">健康管理</a>
-            </li>
-
-            <li class="nav-item">
-              <a class="nav-link" href="task_home">タスク管理</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="user_information">編集</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/">ログアウト</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-
 <div style="padding: 30px; background: rgb(252, 252, 252)">
 
 <h1><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">ようこそ {{user}}</font></font></h1>
 
 <h3><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">今日のタスク</font></font></h3>
 
-{% for i in max %}
+{% for i in range(max) %}
     <div class="card border-primary mb-3" style="max-width: 20rem;">
     <div class="card-header"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">ヘッダ</font></font></div>
     　<div class="card-body">
-        　　<h4 class="card-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">タスク名:{{task_name}}</font></font></h4>
-        <h4 class="card-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">期限{{limit_time}}</font></font></h4>
-        　<p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{content}}</font></font></p>
+        　　<h4 class="card-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">タスク名:{{task_title[i][0]}}</font></font></h4>
+        <h4 class="card-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">期限:{{limit_time[i][0]}}</font></font></h4>
+        　<p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{content[i][0]}}</font></font></p>
 
     </div>
     </div>
 {% endfor %}
-<form action="/task" method="POST">
+<form action="/group" method="GET">
 	<button type="submit" class="btn btn-info" name="post" value="taskmove"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">グループ追加</font></font></button>
 </form>
 <br>
-<form action="/task_add" method="POST">
+<form action="/task-add" method="GET">
 	<button type="submit" class="btn btn-info" name="post" value="taskmove"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">タスク追加</font></font></button>
 </form>
 
