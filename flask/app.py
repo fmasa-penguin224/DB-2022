@@ -274,7 +274,7 @@ def task_add():
 
         mygrouplist = Group.sarch_group(user_id)
         print(user_id,group_name,limit,task_name,task)
-        # Task.task_add(user_id,group_name,limit,task_name,task)
+        Task.task_add(user_id,group_name,limit,task_name,task)
         message=task_name + 'を登録しました'
         return render_template("task-add.html" , tittle='タスク追加',mygrouplist=mygrouplist,message=message)
 

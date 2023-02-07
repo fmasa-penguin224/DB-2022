@@ -44,9 +44,16 @@
         　　<h4 class="card-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">タスク名:{{task_name}}</font></font></h4>
         <h4 class="card-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">期限{{limit_time}}</font></font></h4>
         　<p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{content}}</font></font></p>
-        <a href="#">入力</a>
+
     </div>
     </div>
 {% endfor %}
+<form action="/task" method="POST">
+	<button type="submit" class="btn btn-info" name="post" value="taskmove"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">グループ追加</font></font></button>
+</form>
+<br>
+<form action="/task_add" method="POST">
+	<button type="submit" class="btn btn-info" name="post" value="taskmove"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">タスク追加</font></font></button>
+</form>
 
 {% endblock %}
